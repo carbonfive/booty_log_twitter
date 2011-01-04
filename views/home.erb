@@ -9,10 +9,11 @@
           color: #fff;
           font-family: georgia, serif;
       }
+
       div {
-          margin:0;
-          padding:0;
-          text-align:left;
+          margin: 0;
+          padding: 0;
+          text-align: left;
       }
 
       h2 {
@@ -30,8 +31,8 @@
 
       li {
           margin: 10px 0;
-          font-size: 26px;
-          line-height: 32px;
+          font-size: 20px;
+          line-height: 26px;
       }
 
       .container {
@@ -53,8 +54,39 @@
           width: 550px;
       }
 
+      .user {
+          padding-right: 10px;
+      }
+      .color0 {
+          color: red;
+      }
+
+      .color1 {
+          color: #fc0;
+      }
+
+      .color2 {
+          color: aqua;
+      }
+
+      .color3 {
+          color: blue;
+      }
+
+      .color4 {
+          color: #7fff00;
+      }
+
       .header .left img {
           padding-top: 54px;
+      }
+
+      .time {
+          color: #ccc;
+          font-family: 'Lucida Sans', 'Lucida Grande', Verdana, Arial, sans-serif;
+          font-size: 10px;
+          line-height: 15px;
+          margin: 0;
       }
 
       .clearfix:after {
@@ -64,8 +96,8 @@
           visibility: hidden;
           line-height: 0;
           height: 0;
-      }
 
+      }
       .clearfix {
           display: inline-block;
       }
@@ -75,7 +107,7 @@
       }
 
       * html .clearfix {
-          /*height: 1%;*/
+      /*height: 1%;*/
       }
 
       div {
@@ -87,7 +119,9 @@
     Booty Log
   </title>
 </head>
-<body>
+<body onload="javascript:setTimeout(function(){ document.location.href = document.location.href;}, 10000);">
+<script>
+</script>
 <div class="container">
   <div class="header clearfix">
     <div class="left"><img src="title.png" alt="Project Bootylog: Let's get it on"></div>
@@ -96,7 +130,7 @@
   <div class="body clearfix">
     <div class="left"><img src="instructions.png" alt="Think of Bootylog as your little black book."></div>
     <div class="right">
-      <h2>#bootylog</h2>
+      <h2><%= "#{@hashtag}" %></h2>
       <ul>
         <%= "#{@stream}" %>
       </ul>
