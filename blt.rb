@@ -55,7 +55,7 @@ helpers do
         msg.gsub!(Regexp.new(@hashtag, Regexp::IGNORECASE), '')
         user_color = USER_COLORS[p.from_user.hash % USER_COLORS.size]
         time_ago   = time_ago_in_words(Time.parse(p.created_at))
-        @stream << "<li><span class='user' style='color:#{user_color}'>#{p.from_user}</span>#{msg} <span class='time'>#{time_ago}</span></li>"
+        @stream << "<li><span class='user' style='color:#{user_color}'>#{p.from_user}</span>#{msg}&nbsp;&nbsp;<span class='time'>#{time_ago}</span></li>"
       rescue
         # ignore any tweets that cause errors
       end
