@@ -1,28 +1,107 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+        "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>
-			Booty Log
-		</title>
-	</head>
-	<body>
-		<div class="header">
-			header
-		</div>
-		<div class="body">
-			<div class="instructions">
-				instructions
-			</div>
-			<div class="stream">
-				<ul>
-					<%= "#{@stream}" %>
-				</ul>
-			</div>
-		</div>
-		<div class="footer">
-			footer
-		</div>
-	</body>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type="text/css">
+      html, body {
+          background: #333;
+          color: #fff;
+          font-family: georgia, serif;
+      }
+      div {
+          margin:0;
+          padding:0;
+          text-align:left;
+      }
+
+      h2 {
+          line-height: 32px;
+          font-size: 32px;
+          font-weight: normal;
+          margin-top: 0;
+      }
+
+      ul {
+          list-style: none;
+          margin: 0;
+          padding-left: 0;
+      }
+
+      li {
+          margin: 10px 0;
+          font-size: 26px;
+          line-height: 32px;
+      }
+
+      .container {
+          margin: 50px auto;
+          width: 960px;
+      }
+
+      .body {
+          margin-top: 50px;
+      }
+
+      .left {
+          float: left;
+          width: 390px;
+      }
+
+      .right {
+          float: left;
+          width: 550px;
+      }
+
+      .header .left img {
+          padding-top: 54px;
+      }
+
+      .clearfix:after {
+          content: ".";
+          display: block;
+          clear: both;
+          visibility: hidden;
+          line-height: 0;
+          height: 0;
+      }
+
+      .clearfix {
+          display: inline-block;
+      }
+
+      html[xmlns] .clearfix {
+          display: block;
+      }
+
+      * html .clearfix {
+          /*height: 1%;*/
+      }
+
+      div {
+      /*border: 1px solid green;*/
+      }
+
+  </style>
+  <title>
+    Booty Log
+  </title>
+</head>
+<body>
+<div class="container">
+  <div class="header clearfix">
+    <div class="left"><img src="title.png" alt="Project Bootylog: Let's get it on"></div>
+    <div class="right"><img src="header-graphic.png" alt="Bootylog"></div>
+  </div>
+  <div class="body clearfix">
+    <div class="left"><img src="instructions.png" alt="Think of Bootylog as your little black book."></div>
+    <div class="right">
+      <h2>#bootylog</h2>
+      <ul>
+        <%= "#{@stream}" %>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
 </html>

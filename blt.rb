@@ -15,3 +15,6 @@ get '/' do
   search.hashtag(HASHTAG).per_page(10).fetch.each {|p| @stream << "<li>#{p.text}</li>"}
   erb :home
 end
+
+get '/favicon' do
+end
