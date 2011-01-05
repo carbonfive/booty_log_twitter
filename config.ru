@@ -1,2 +1,2 @@
-require 'blt'
+require './blt'
 run Sinatra::Application
