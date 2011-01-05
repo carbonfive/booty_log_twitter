@@ -44,11 +44,11 @@ helpers do
     end
   end
 
-  def render_page(hashtag=HASHTAG, t="10000")
+  def render_page(hashtag=HASHTAG, timeout)
     search  = Twitter::Search.new
     @stream = ""
     @hashtag = "##{hashtag}"
-    @timeout = t
+    @timeout = timeout || 10000
 
     search.hashtag(hashtag).per_page(10).fetch.each_with_index do |p, idx|
       begin
