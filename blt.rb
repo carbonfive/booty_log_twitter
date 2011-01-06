@@ -44,16 +44,18 @@ helpers do
     end
   end
 
-  def render_page(hashtag=HASHTAG, timeout)
+  def render_page(params)
     search  = Twitter::Search.new
     @stream = ""
-    @hashtag = "##{hashtag}"
-    @timeout = timeout || 10000
+    @hashtag = params[:h] || HASHTAG
+    @timeout = params[:t] || 10000
+    @count = params[:c] || 10
 
-    search.hashtag(hashtag).per_page(10).fetch.each_with_index do |p, idx|
+    search.hashtag(@hashtag).per_page(@count).fetch.each_with_index do |p, idx|
       begin
         msg = p.text
-        msg.gsub!(Regexp.new(@hashtag, Regexp::IGNORECASE), '')
+        regexes = Regexp.union(/^#bootylog/i, /#bootylog$/i)
+        msg.gsub!(regexes, '')
         user_color = USER_COLORS[p.from_user.hash % USER_COLORS.size]
         time_ago   = time_ago_in_words(Time.parse(p.created_at))
         @stream << "<li><span class='user' style='color:#{user_color}'>#{p.from_user}</span>#{msg}&nbsp;&nbsp;<span class='time'>#{time_ago}</span></li>"
@@ -67,13 +69,8 @@ helpers do
 end
 
 get "/" do
-  render_page(HASHTAG, params[:t])
+  render_page(params)
 end
-
-get "/:hashtag" do
-  render_page(params[:hashtag], params[:t])
-end
-
 
 get '/favicon' do
 end
