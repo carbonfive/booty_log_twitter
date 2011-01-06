@@ -49,7 +49,7 @@ helpers do
     @stream = ""
     @hashtag = params[:h] || HASHTAG
     @timeout = params[:t] || 10000
-    @count = params[:c] || 10
+    @count = params[:c] || 20
 
     search.hashtag(@hashtag).per_page(@count).fetch.each_with_index do |p, idx|
       begin

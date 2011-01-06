@@ -1,132 +1,145 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-        "http://www.w3.org/TR/html4/strict.dtd">
+    "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <style type="text/css">
-      html, body {
-          background: #333;
-          color: #fff;
-          font-family: georgia, serif;
-      }
+    html, body {
+      background: #333;
+      color: #fff;
+      font-family: georgia, serif;
+    }
 
-      div {
-          margin: 0;
-          padding: 0;
-          text-align: left;
-      }
+    div {
+      margin: 0;
+      padding: 0;
+      text-align: left;
+    }
 
-      h2 {
-          line-height: 32px;
-          font-size: 32px;
-          font-weight: normal;
-          margin-top: 0;
-      }
+    h2 {
+      line-height: 32px;
+      font-size: 32px;
+      font-weight: normal;
+      margin-top: 0;
+    }
 
-      ul {
-          list-style: none;
-          margin: 0;
-          padding-left: 0;
-      }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+    }
 
-      li {
-          margin: 10px 0;
-          font-size: 18px;
-          line-height: 28px;
-      }
+    li {
+      margin: 10px 0;
+      font-size: 18px;
+      line-height: 28px;
+    }
 
-      .container {
-          margin: 50px auto;
-          width: 960px;
-      }
+    .container {
+      margin: 50px auto;
+      width: 960px;
+    }
 
-      .body {
-          margin-top: 50px;
-      }
+    .body {
+      margin-top: 50px;
+    }
 
-      .left {
-          float: left;
-          width: 400px;
-      }
+    .left {
+      float: left;
+      width: 400px;
+    }
 
-      .right {
-          float: left;
-          width: 560px;
-      }
+    .right {
+      float: left;
+      width: 560px;
+    }
 
-      .user {
-          padding-right: 10px;
-      }
-      .color0 {
-          color: red;
-      }
+    .user {
+      padding-right: 10px;
+    }
 
-      .color1 {
-          color: #fc0;
-      }
+    .color0 {
+      color: red;
+    }
 
-      .color2 {
-          color: aqua;
-      }
+    .color1 {
+      color: #fc0;
+    }
 
-      .color3 {
-          color: blue;
-      }
+    .color2 {
+      color: aqua;
+    }
 
-      .color4 {
-          color: #7fff00;
-      }
+    .color3 {
+      color: blue;
+    }
 
-      .header .left img {
-          padding-top: 54px;
-      }
+    .color4 {
+      color: #7fff00;
+    }
 
-      .body .left img {
-          padding-top: 12px;
-      }
+    .header .left img {
+      padding-top: 54px;
+    }
 
-      .time {
-          white-space: nowrap;
-          color: #ccc;
-          font-family: 'Lucida Sans', 'Lucida Grande', Verdana, Arial, sans-serif;
-          font-size: 10px;
-          line-height: 15px;
-          margin: 0;
-      }
+    .body .left img {
+      padding-top: 12px;
+    }
 
-      .clearfix:after {
-          content: ".";
-          display: block;
-          clear: both;
-          visibility: hidden;
-          line-height: 0;
-          height: 0;
+    .time {
+      white-space: nowrap;
+      color: #ccc;
+      font-family: 'Lucida Sans', 'Lucida Grande', Verdana, Arial, sans-serif;
+      font-size: 10px;
+      line-height: 15px;
+      margin: 0;
+    }
 
-      }
-      .clearfix {
-          display: inline-block;
-      }
+    .more {
+      background: #444444;
+      text-align: center;
+      margin-top: 40px;
+      height: 25px;
+      color: #bfbfbf;
+      font-family: 'Lucida Sans', 'Lucida Grande', Verdana, Arial, sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      text-decoration: none;
+      line-height: 22px;
+    }
 
-      html[xmlns] .clearfix {
-          display: block;
-      }
+    .more:hover {
+      background: #4f4f4f;
+      cursor: pointer;
+    }
 
-      * html .clearfix {
-      /*height: 1%;*/
-      }
+    .clearfix:after {
+      content: ".";
+      display: block;
+      clear: both;
+      visibility: hidden;
+      line-height: 0;
+      height: 0;
 
-      div {
-      /*border: 1px solid green;*/
-      }
+    }
 
+    .clearfix {
+      display: inline-block;
+    }
+
+    html[xmlns] .clearfix {
+      display: block;
+    }
+
+    * html .clearfix {
+    /*height: 1%;*/
+    }
   </style>
   <title>
     Booty Log
   </title>
 </head>
 <body onload="javascript:setTimeout(function(){ document.location.href = document.location.href;}, <%= @timeout %> );">
-<script>
-</script>
 <div class="container">
   <div class="header clearfix">
     <div class="left"><img src="title.png" alt="Project Bootylog: Let's get it on"></div>
@@ -136,9 +149,8 @@
     <div class="left"><img src="instructions.png" alt="Think of Bootylog as your little black book."></div>
     <div class="right">
       <h2>#<%= "#{@hashtag}" %></h2>
-      <ul>
-        <%= "#{@stream}" %>
-      </ul>
+      <ul><%= "#{@stream}" %></ul>
+      <div class="more" onclick='javascript: document.location.href="/?c=<%=@count.to_i + 20 %>"'>more</div>
     </div>
   </div>
 </div>
