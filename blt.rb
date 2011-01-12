@@ -3,6 +3,16 @@ require 'rubygems'
 require 'sinatra'
 require 'twitter'
 require 'erb'
+require 'sequel'
+
+DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://blt.db')
+# DB = Sequel.sqlite('./blt.db')
+DB.create_table :tweets do
+  primary_key :id
+  Long :t_id
+  String :t_user
+  String :t_text
+end
 
 HASHTAG     = "bootylog"
 USER_COLORS = ['#f6b6d2',
@@ -50,9 +60,11 @@ helpers do
     @hashtag = params[:h] || HASHTAG
     @timeout = params[:t] || 10000
     @count = params[:c] || 20
+    tweets = DB[:tweets]
 
     search.hashtag(@hashtag).per_page(@count).fetch.each_with_index do |p, idx|
       begin
+        tweets.insert(:t_id => p.to_json, :t_user => p.from_user, :t_text => p.text)
         msg = p.text
         regexes = Regexp.union(/^#bootylog/i, /#bootylog$/i)
         msg.gsub!(regexes, '')
