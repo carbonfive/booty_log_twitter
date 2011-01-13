@@ -77,8 +77,8 @@ helpers do
         # update the local store if it has not been updated within the last 10 seconds
         tweets.find
         tweets.insert(:t_id => p.id, :t_user => p.from_user, :t_text => p.text, :t_datetime => p.created_at)
-      rescue e
-        puts e
+      rescue Exception => e
+        puts e.inspect
       end
     end
 
