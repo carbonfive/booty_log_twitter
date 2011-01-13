@@ -9,7 +9,7 @@ require 'json/pure'
 DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://blt.db')
 DB.create_table? :tweets do
   primary_key :id
-  Long :t_id
+  Integer :t_id
   String :t_user
   String :t_text
   Datetime :t_datetime
