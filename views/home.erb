@@ -14,14 +14,17 @@
 <div class="container">
   <div class="header clearfix">
     <div class="left"><img src="title.png" alt="Project Bootylog: Let's get it on"></div>
-    <div class="right"><img src="header-graphic.png" alt="Bootylog"></div>
+    <div class="right">
+      <a href="/"><img src="header-graphic.png" alt="Bootylog"></a></div>
   </div>
   <div class="body clearfix">
     <div class="left"><img src="instructions.png" alt="Think of Bootylog as your little black book."></div>
     <div class="right">
       <h2>#<%= "#{@hashtag}" %></h2>
       <ul><%= "#{@stream}" %></ul>
-      <div class="more" onclick='javascript: document.location.href="/?c=<%=@count.to_i + 20 %>"'>more</div>
+      <% if @size > 20 %>
+      <div class="more" onclick='javascript: document.location.href="/?page=<%= (@page.to_i + 1).to_s %>"'>more</div>
+      <% end %>
     </div>
   </div>
 </div>

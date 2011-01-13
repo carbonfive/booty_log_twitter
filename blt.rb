@@ -16,17 +16,23 @@ DB.create_table? :tweets do
 end
 
 DEFAULT_REFRESH = 10000
-HASHTAG     = "bootylog"
-USER_COLORS = ['#f6b6d2',
-               '#5cbb69',
-               '#b1c136',
-               '#45b5c4',
-               '#f7ab1e',
-               '#f6b6d1',
-               '#f07126',
-               '#52995c',
-               '#9d7ab5',
-               '#a4cd39']
+HASHTAG         = "bootylog"
+USER_COLORS     = ['#f6b6d2',
+                   '#5cbb69',
+                   '#b1c136',
+                   '#45b5c4',
+                   '#f7ab1e',
+                   '#f6b6d1',
+                   '#f07126',
+                   '#52995c',
+                   '#9d7ab5',
+                   '#a4cd39']
+
+class Array
+  def every c
+    inject([[]]) { |a, i| (a[-1].size==c ?a<<[i] :a[-1]<<i)&&a }
+  end
+end
 
 helpers do
   def time_ago_in_words(from_time)
@@ -55,15 +61,16 @@ helpers do
         "a long time ago"
     end
   end
-  
+
   def render_page(params)
-    search  = Twitter::Search.new
-    @stream = ""
+    search   = Twitter::Search.new
+    @stream  = ""
     @hashtag = params[:h] || HASHTAG
     @timeout = params[:t] || DEFAULT_REFRESH
-    @count = params[:c] || 20
-    tweets = DB[:tweets]
-    last_id = tweets.order(:t_id).last ? tweets.order(:t_id).last[:t_id] : 0
+    @page    = params[:page].to_i || 1
+
+    tweets   = DB[:tweets]
+    last_id  = tweets.order(:t_id).last ? tweets.order(:t_id).last[:t_id] : 0
 
     search.hashtag(@hashtag).since_id(last_id).fetch.each do |p|
       begin
@@ -75,13 +82,17 @@ helpers do
       end
     end
 
-    tweets.each do |p|
-        msg = p[:t_text]
-        regexes = Regexp.union(/^#bootylog/i, /#bootylog$/i)
-        msg.gsub!(regexes, '')
-        user_color = USER_COLORS[p[:t_user].hash % USER_COLORS.size]
-        time_ago   = time_ago_in_words(p[:t_datetime])
-        @stream << "<li><span class='user' style='color:#{user_color}'>#{p[:t_user]}</span>#{msg}&nbsp;&nbsp;<span class='time'>#{time_ago}</span></li>"
+    @size = tweets.count
+
+    pages = DB["select id from tweets order by id asc"].all.every(20)
+
+    tweets.filter("id >= #{pages[@page].first[:id]}").limit(20).each do |p|
+      msg     = p[:t_text]
+      regexes = Regexp.union(/^#bootylog/i, /#bootylog$/i)
+      msg.gsub!(regexes, '')
+      user_color = USER_COLORS[p[:t_user].hash % USER_COLORS.size]
+      time_ago   = time_ago_in_words(p[:t_datetime])
+      @stream << "<li><span class='user' style='color:#{user_color}'>#{p[:t_user]}</span>#{msg}&nbsp;&nbsp;<span class='time'>#{time_ago}</span></li>"
     end
     erb :home
   end
