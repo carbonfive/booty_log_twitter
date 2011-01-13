@@ -6,7 +6,7 @@ require 'erb'
 require 'sequel'
 require 'json/pure'
 
-DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://blt.db')
+DB = Sequel.connect(ENV['SHARED_DATABASE_URL'] || 'sqlite://blt.db')
 DB.create_table? :tweets do
   primary_key :id
   Integer :t_id
