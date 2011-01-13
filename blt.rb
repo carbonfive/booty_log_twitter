@@ -6,7 +6,7 @@ require 'erb'
 require 'sequel'
 require 'json/pure'
 
-DB = Sequel.connect(ENV['SHARED_DATABASE_URL'] || 'sqlite://blt.db')
+DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://blt.db')
 DB.create_table? :tweets do
   primary_key :id
   Integer :t_id
@@ -77,14 +77,16 @@ helpers do
         # update the local store if it has not been updated within the last 10 seconds
         tweets.find
         tweets.insert(:t_id => p.id, :t_user => p.from_user, :t_text => p.text, :t_datetime => p.created_at)
-      rescue
-        # ignore any tweets that cause errors
+      rescue e
+        puts e
       end
     end
 
     @size = tweets.count
 
     pages = DB["select id from tweets order by id asc"].all.every(20)
+
+
 
     unless pages[@page].first.nil?
       tweets.filter("id >= #{pages[@page].first[:id]}").limit(20).each do |p|
