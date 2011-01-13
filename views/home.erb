@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <link type="text/css" rel="stylesheet" href="/styles/home.css" />
+  <link type="text/css" rel="stylesheet" href="/styles/home.css">
+  <script type="text/javascript" src="/javascript/jquery-1.4.4.min.js"></script>
+  <script type="text/javascript" src="/javascript/index.js"></script>
+  <script>
+    var REFRESH_RATE = <%= @timeout %>;
+  </script>
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -10,7 +15,7 @@
     Booty Log
   </title>
 </head>
-<body onload="javascript:setTimeout(function(){ document.location.href = document.location.href;}, <%= @timeout %> );">
+<body>
 <div class="container">
   <div class="header clearfix">
     <div class="left"><img src="title.png" alt="Project Bootylog: Let's get it on"></div>
@@ -21,7 +26,7 @@
     <div class="left"><img src="instructions.png" alt="Think of Bootylog as your little black book."></div>
     <div class="right">
       <h2>#<%= "#{@hashtag}" %></h2>
-      <ul><%= "#{@stream}" %></ul>
+      <ul id="stream"><%= "#{@stream}" %></ul>
       <% if @size > 20 %>
       <div class="more" onclick='javascript: document.location.href="/?page=<%= (@page.to_i + 1).to_s %>"'>more</div>
       <% end %>

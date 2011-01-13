@@ -62,7 +62,7 @@ helpers do
     end
   end
 
-  def render_page(params)
+  def fetch_page(params)
     search   = Twitter::Search.new
     @stream  = ""
     @hashtag = params[:h] || HASHTAG
@@ -86,10 +86,10 @@ helpers do
 
     pages = DB["select id from tweets order by id asc"].all.every(20)
 
-
-
-    unless pages[@page].first.nil?
-      tweets.filter("id >= #{pages[@page].first[:id]}").limit(20).each do |p|
+    if pages[@page - 1].nil?
+      @stream = "<li>There's nothing here.</li>"
+    else
+      tweets.filter("id >= #{pages[@page - 1].first[:id]}").order(:t_id.desc).limit(20).each do |p|
         msg     = p[:t_text]
         regexes = Regexp.union(/^#bootylog/i, /#bootylog$/i)
         msg.gsub!(regexes, '')
@@ -98,13 +98,18 @@ helpers do
         @stream << "<li><span class='user' style='color:#{user_color}'>#{p[:t_user]}</span>#{msg}&nbsp;&nbsp;<span class='time'>#{time_ago}</span></li>"
       end
     end
-    erb :home
   end
 
 end
 
 get "/" do
-  render_page(params)
+  fetch_page(params)
+  erb :home
+end
+
+get "/stream" do
+  fetch_page(params)
+  erb :stream
 end
 
 get '/favicon' do
