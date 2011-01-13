@@ -86,13 +86,15 @@ helpers do
 
     pages = DB["select id from tweets order by id asc"].all.every(20)
 
-    tweets.filter("id >= #{pages[@page].first[:id]}").limit(20).each do |p|
-      msg     = p[:t_text]
-      regexes = Regexp.union(/^#bootylog/i, /#bootylog$/i)
-      msg.gsub!(regexes, '')
-      user_color = USER_COLORS[p[:t_user].hash % USER_COLORS.size]
-      time_ago   = time_ago_in_words(p[:t_datetime])
-      @stream << "<li><span class='user' style='color:#{user_color}'>#{p[:t_user]}</span>#{msg}&nbsp;&nbsp;<span class='time'>#{time_ago}</span></li>"
+    unless pages[@page].first.nil?
+      tweets.filter("id >= #{pages[@page].first[:id]}").limit(20).each do |p|
+        msg     = p[:t_text]
+        regexes = Regexp.union(/^#bootylog/i, /#bootylog$/i)
+        msg.gsub!(regexes, '')
+        user_color = USER_COLORS[p[:t_user].hash % USER_COLORS.size]
+        time_ago   = time_ago_in_words(p[:t_datetime])
+        @stream << "<li><span class='user' style='color:#{user_color}'>#{p[:t_user]}</span>#{msg}&nbsp;&nbsp;<span class='time'>#{time_ago}</span></li>"
+      end
     end
     erb :home
   end
