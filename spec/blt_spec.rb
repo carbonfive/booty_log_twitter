@@ -11,4 +11,10 @@ describe "My App" do
     get '/favicon'
     last_response.should be_ok
   end
+
+  it "should respond to /" do
+    get '/'
+    last_response.should be_ok
+  end
+
 end
