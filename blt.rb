@@ -7,7 +7,6 @@ require 'sequel'
 require 'json/pure'
 
 DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://blt.db')
-DB.drop_table :tweets
 DB.create_table? :tweets do
   primary_key :id
   Bigint :t_id
