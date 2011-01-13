@@ -12,7 +12,7 @@ DB.create_table? :tweets do
   Integer :t_id
   String :t_user
   String :t_text
-  Datetime :t_datetime
+  Timestamp :t_datetime
 end
 
 DEFAULT_REFRESH = 10000
